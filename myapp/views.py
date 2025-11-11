@@ -52,22 +52,25 @@ def delete(request,id):
     return redirect('crud')
 
 def index(request):
-    cat_list = category.objects.prefetch_related('subcategories').all()
-    did = request.GET.get('did')
-    sid = request.GET.get('sid')
-    context = {
-        "cat_id": cat_list,
-        "did": did,
-        "sid": sid,
+    cat_id=category.objects.all()
+    sub=subcategory.objects.all()
+    context={
+        "cat_id":cat_id,
+        "sub":sub
     }
     return render(request, 'index.html', context)
 
 def shop(request):
     cat_id=category.objects.all()
     sub=request.GET.get('sub')
+    colors=colorfilter.objects.all()
+    selected_colors = request.GET.getlist('colors')
+    
     contaxt={   
         "cat_id":cat_id,
-        "sub":sub
+        "sub":sub,
+        "colors":colors,
+        "selected_colors":selected_colors
     }
     return render(request, 'shop.html',contaxt)
 
@@ -162,3 +165,25 @@ def category2(request):
 #         'categories': categories
 #     }
 #     return render(request, 'index.html', context)
+
+def color(request):
+    colors=colorfilter.objects.all()
+    selected_colors = request.GET.getlist('colors')
+    print("Selected colors:", selected_colors)
+    color_ids = [int(c) for c in selected_colors if c.isdigit()]
+
+    selected_color_names = []
+    if color_ids:
+        selected_color_names = list(
+            colorfilter.objects.filter(id__in=color_ids).values_list('color_name', flat=True)
+        )
+    print("Selected Color IDs:", color_ids)
+    print("Selected color names:", selected_color_names)
+
+    context={
+        "colors":colors,
+        "selected_colors":selected_colors,
+        "selected_color_names":selected_color_names,
+        "color_ids":color_ids
+    }
+    return render(request,"shop.html",context)

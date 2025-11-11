@@ -107,16 +107,14 @@
                         <div class="nav-item dropdown">
                             <a href="shop?did={{i.id}}" class="nav-link">{{i.category_name}} <i class="fa fa-angle-down float-right mt-1"></i></a>
                             <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                             <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                    {% for n in i.subcategories.all %}
-                    <a href="/shop?sub={{n.id}}" class="dropdown-item">{{ n.subcategory_name }}</a>
-                    <!-- <span class="dropdown-item">No subcategories</span> -->
-                    {% endfor %}
-                </div>
-            </div>
-          
-                        </div>  
-                                                {% endfor %}
+                                {% for n in i.subcategories.all %}
+                                <a href="{% url 'shop' %}?sub{{ n.id }}" class="dropdown-item">{{ n.subcategory_name }}</a>
+                                {% empty %}
+                                <span class="dropdown-item">No subcategories</span>
+                                {% endfor %}
+                                </div>
+                                </div>
+                                {% endfor %}
 
                                 
                             </div>
@@ -229,18 +227,21 @@
                 <!-- Color Start -->
                 <div class="border-bottom mb-4 pb-4">
                     <h5 class="font-weight-semi-bold mb-4">Filter by color</h5>
-                    <form>
+                    <form action ="{% url 'color' %}" method="get">
+                        {% csrf_token %}
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="color-all">
+                            <input type="checkbox" class="custom-control-input" checked id="color-all" name="colors" value="all">  
                             <label class="custom-control-label" for="price-all">All Color</label>
                             <span class="badge border font-weight-normal">1000</span>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="color-1">
-                            <label class="custom-control-label" for="color-1">Black</label>
-                            <span class="badge border font-weight-normal">150</span>
+                            {% for c in colors %}
+                            <input type="checkbox" class="custom-control-input" id="color-{{ c.id }}" name="colors" value="{{ c.id }}">
+                            <label class="custom-control-label" for="color-{{ c.id }}">{{ c.color_name }}</label>
+                            <span class="badge border font-weight-normal">{{ c.count|default:"0" }}</span>
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <!-- <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+    
                             <input type="checkbox" class="custom-control-input" id="color-2">
                             <label class="custom-control-label" for="color-2">White</label>
                             <span class="badge border font-weight-normal">295</span>
@@ -259,7 +260,9 @@
                             <input type="checkbox" class="custom-control-input" id="color-5">
                             <label class="custom-control-label" for="color-5">Green</label>
                             <span class="badge border font-weight-normal">168</span>
-                        </div>
+                        </div> -->
+                        {% endfor %}
+                        <button type="submit">Filter</button>
                     </form>
                 </div>
                 <!-- Color End -->

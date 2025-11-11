@@ -33,6 +33,13 @@ class subcategory(models.Model):
     def __str__(self):
         return self.subcategory_name
     
+class colorfilter(models.Model):
+    color_name=models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.color_name
+
+    
 
     
 

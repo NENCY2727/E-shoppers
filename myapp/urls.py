@@ -36,4 +36,5 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('category1', views.category1, name='category1'),
     path('category2', views.category2, name='category2'),
+    path('color', views.color, name='color'),
 ]   
