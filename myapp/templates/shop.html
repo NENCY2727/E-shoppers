@@ -234,14 +234,14 @@
                             <label class="custom-control-label" for="price-all">All Color</label>
                             <span class="badge border font-weight-normal">1000</span>
                         </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            {% for c in colors %}
+                        {% for c in colors %}
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-2">
                             <input type="checkbox" class="custom-control-input" id="color-{{ c.id }}" name="colors" value="{{ c.id }}">
                             <label class="custom-control-label" for="color-{{ c.id }}">{{ c.color_name }}</label>
                             <span class="badge border font-weight-normal">{{ c.count|default:"0" }}</span>
                         </div>
                         <!-- <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-    
+
                             <input type="checkbox" class="custom-control-input" id="color-2">
                             <label class="custom-control-label" for="color-2">White</label>
                             <span class="badge border font-weight-normal">295</span>
@@ -262,7 +262,7 @@
                             <span class="badge border font-weight-normal">168</span>
                         </div> -->
                         {% endfor %}
-                        <button type="submit">Filter</button>
+                        <button type="submit" class="btn btn-sm btn-outline-dark mt-3">Filter</button>
                     </form>
                 </div>
                 <!-- Color End -->

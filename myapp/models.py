@@ -38,6 +38,7 @@ class colorfilter(models.Model):
 
     def __str__(self):
         return self.color_name
+    
 
     
 
