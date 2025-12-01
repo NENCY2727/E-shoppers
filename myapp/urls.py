@@ -37,4 +37,5 @@ urlpatterns = [
     path('category1', views.category1, name='category1'),
     path('category2', views.category2, name='category2'),
     path('color', views.color, name='color'),
+    path('size', views.size, name='size'),
 ]   

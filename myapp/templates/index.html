@@ -103,22 +103,23 @@
                 <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
                     <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
                         {% for i in cat_id %}
-                        <div class="nav-item dropdown">
-                            <a href="?did={{i.id }}" class="nav-link">
+                        <div class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="collapse"
+                                data-target="#collapse-{{ i.id }}" role="button" aria-expanded="false">
                             {{ i.category_name }}
                             <i class="fa fa-angle-down float-right mt-1"></i>
                             </a>
                         
-<div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-    {% for n in i.subcategories.all %}
-        <a href="{% url 'shop' %}?sub{{ n.id }}" class="dropdown-item">{{ n.subcategory_name }}</a>
-    {% empty %}
-        <span class="dropdown-item">No subcategories</span>
+<div class="collapse" id="collapse-{{ i.id }}">
+    <div class="bg-light pl-3">
+    {% for n in i.subcategory_set.all %}
+        <a href="{% url 'shop' %}?sub={{n.id}}" class="nav-link">{{ n.subcategory_name }}</a>
     {% endfor %}
-</div>
             </div>
-            {% endfor %}
-                        </div>
+        </div>
+    </div>
+    {% endfor %}
+                </div>
                 </nav>
                         
                         <!-- <a href="index?did={{i.id}}" class="nav-item nav-link">{{i.category_name}}</a>  -->

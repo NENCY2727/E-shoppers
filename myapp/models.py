@@ -26,18 +26,34 @@ class category(models.Model):
         return self.category_name
     
 class subcategory(models.Model):
+    category=models.ForeignKey(category,on_delete=models.CASCADE,blank=True,null=True)
     subcategory_name=models.CharField(max_length=100)
-    category=models.ForeignKey(category,on_delete=models.CASCADE, related_name='subcategories')
 
 
     def __str__(self):
         return self.subcategory_name
     
-class colorfilter(models.Model):
+class colorfilter1(models.Model):
     color_name=models.CharField(max_length=50)
 
     def __str__(self):
         return self.color_name
+    
+class sizefilter(models.Model):
+    size_name=models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.size_name
+    
+class Product_detail(models.Model):
+    subcategory=models.ForeignKey(subcategory,on_delete=models.CASCADE,blank=True,null=True)
+    product_name=models.CharField(max_length=100)
+    price=models.IntegerField()
+    image=models.ImageField(upload_to='image')
+    
+
+    def __str__(self):
+        return self.product_name
     
 
     

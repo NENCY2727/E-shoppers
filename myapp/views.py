@@ -63,14 +63,20 @@ def index(request):
 def shop(request):
     cat_id=category.objects.all()
     sub=request.GET.get('sub')
-    colors=colorfilter.objects.all()
-    selected_colors = request.GET.getlist('colors')
+
+    if sub:
+        pro1=Product_detail.objects.filter(subcategory__id=sub)
+    colors=colorfilter1.objects.all()
+    sizes=sizefilter.objects.all()
+    pro1=Product_detail.objects.all()
     
     contaxt={   
         "cat_id":cat_id,
         "sub":sub,
         "colors":colors,
-        "selected_colors":selected_colors
+        "sizes":sizes,
+        "pro1":pro1
+
     }
     return render(request, 'shop.html',contaxt)
 
@@ -167,23 +173,18 @@ def category2(request):
 #     return render(request, 'index.html', context)
 
 def color(request):
-    colors=colorfilter.objects.all()
-    selected_colors = request.GET.getlist('colors')
-    print("Selected colors:", selected_colors)
-    color_ids = [int(c) for c in selected_colors if c.isdigit()]
-
-    selected_color_names = []
-    if color_ids:
-        selected_color_names = list(
-            colorfilter.objects.filter(id__in=color_ids).values_list('color_name', flat=True)
-        )
-    print("Selected Color IDs:", color_ids)
-    print("Selected color names:", selected_color_names)
-
+    colors=colorfilter1.objects.all()
+    
     context={
         "colors":colors,
-        "selected_colors":selected_colors,
-        "selected_color_names":selected_color_names,
-        "color_ids":color_ids
     }
     return render(request,"shop.html",context)
+
+def size(request):
+    sizes = sizefilter.objects.all()
+
+    context = {
+        "sizes": sizes,
+    }
+    return render(request,"shop.html",context)
+
