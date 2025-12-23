@@ -50,12 +50,18 @@ class Product_detail(models.Model):
     product_name=models.CharField(max_length=100)
     price=models.IntegerField()
     image=models.ImageField(upload_to='image')
-    
+    colorfilter1=models.ForeignKey(colorfilter1,on_delete=models.CASCADE,blank=True,null=True)
 
     def __str__(self):
         return self.product_name
     
+class pricefilter(models.Model):
+    price_range=models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.price_range
+    
+    
     
 
     

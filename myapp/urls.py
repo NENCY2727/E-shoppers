@@ -38,4 +38,6 @@ urlpatterns = [
     path('category2', views.category2, name='category2'),
     path('color', views.color, name='color'),
     path('size', views.size, name='size'),
+    path('price', views.price, name='price')
+    
 ]   

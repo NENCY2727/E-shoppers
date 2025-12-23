@@ -64,20 +64,27 @@ def shop(request):
     cat_id=category.objects.all()
     sub=request.GET.get('sub')
 
+   
     if sub:
         pro1=Product_detail.objects.filter(subcategory__id=sub)
     colors=colorfilter1.objects.all()
     sizes=sizefilter.objects.all()
     pro1=Product_detail.objects.all()
-    
+    pricefilters=pricefilter.objects.all()
+
+    cid = request.GET.get("color_name")
+    print(cid)
+
     contaxt={   
         "cat_id":cat_id,
         "sub":sub,
         "colors":colors,
         "sizes":sizes,
-        "pro1":pro1
-
+        "cid":cid,
+        "pro1":pro1,
+        "prices":pricefilters,
     }
+
     return render(request, 'shop.html',contaxt)
 
 def cart(request):
@@ -174,9 +181,14 @@ def category2(request):
 
 def color(request):
     colors=colorfilter1.objects.all()
+    cid=request.GET.get("color_name")
+    print(cid)
+
     
+      
     context={
         "colors":colors,
+        "cid":cid,
     }
     return render(request,"shop.html",context)
 
@@ -185,6 +197,14 @@ def size(request):
 
     context = {
         "sizes": sizes,
+    }
+    return render(request,"shop.html",context)
+
+def price(request):
+    prices = pricefilter.objects.all()
+
+    context = {
+        "prices": prices,
     }
     return render(request,"shop.html",context)
 
